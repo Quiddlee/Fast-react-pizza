@@ -12,6 +12,7 @@ module.exports = {
   ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts', 'prettier.config.js'],
   plugins: ['react', 'react-refresh', 'simple-import-sort', 'import', 'prettier'],
   rules: {
+    'no-void': 0,
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'react/react-in-jsx-scope': 0,
     'import/no-extraneous-dependencies': 0,

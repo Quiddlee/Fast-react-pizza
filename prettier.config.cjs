@@ -6,6 +6,5 @@ module.exports = {
   bracketSpacing: true,
   bracketSameLine: true,
   editorconfig: true,
-  // eslint-disable-next-line global-require
-  plugins: [require('prettier-plugin-tailwindcss')],
+  plugins: ['prettier-plugin-tailwindcss'],
 };

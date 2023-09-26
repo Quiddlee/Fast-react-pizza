@@ -5,8 +5,7 @@ module.exports = {
   trailingComma: 'all',
   bracketSpacing: true,
   bracketSameLine: true,
-  importOrder: ["^components/(.*)$", "^[./]" ],
-  importOrderSeparation: true,
-  importOrderSortSpecifiers: true,
-  editorconfig: true
+  editorconfig: true,
+  // eslint-disable-next-line global-require
+  plugins: [require('prettier-plugin-tailwindcss')],
 };

@@ -11,6 +11,9 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts', 'prettier.config.js'],
   plugins: ['react', 'react-refresh', 'simple-import-sort', 'import', 'prettier'],
+  "parserOptions": {
+    "ecmaVersion": 'latest'
+  },
   rules: {
     'no-void': 0,
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],

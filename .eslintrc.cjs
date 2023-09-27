@@ -7,6 +7,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:import/recommended',
+    'prettier',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts', 'prettier.config.js'],
   plugins: ['react', 'react-refresh', 'simple-import-sort', 'import', 'prettier'],

@@ -1,7 +1,11 @@
 import { useState } from 'react';
 
+import Button from '../../ui/Button.jsx';
+
 function CreateUser() {
   const [username, setUsername] = useState('');
+
+  const userNameExist = username !== '';
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -18,12 +22,12 @@ function CreateUser() {
         placeholder="Your full name"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-        className="w-72"
+        className="input mb-8 w-72"
       />
 
-      {username !== '' && (
+      {userNameExist && (
         <div>
-          <button>Start ordering</button>
+          <Button>Start ordering</Button>
         </div>
       )}
     </form>

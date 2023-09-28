@@ -52,12 +52,7 @@ function CreateOrder() {
         <div>
           <label htmlFor="customer">
             First Name
-            <input
-              className="ease-bounce w-full rounded-full border border-stone-200 px-4 py-2 text-sm transition-all duration-300 focus:outline-none focus:ring focus:ring-yellow-400 md:px-6 md:py-3"
-              type="text"
-              name="customer"
-              required
-            />
+            <input className="input" type="text" name="customer" required />
           </label>
         </div>
 
@@ -65,7 +60,7 @@ function CreateOrder() {
           <label htmlFor="phone">
             Phone number
             <div>
-              <input type="tel" name="phone" required />
+              <input className="input" type="tel" name="phone" required />
             </div>
             {formErrors?.phone && <p>{formErrors.phone}</p>}
           </label>
@@ -75,7 +70,7 @@ function CreateOrder() {
           <label htmlFor="address">
             Address
             <div>
-              <input type="text" name="address" required />
+              <input className="input" type="text" name="address" required />
             </div>
           </label>
         </div>

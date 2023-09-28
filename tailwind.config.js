@@ -7,6 +7,12 @@ export default {
         bounce: 'cubic-bezier(.25,1.55,.65,.97)',
       },
     },
+    fontFamily: {
+      sans: 'Roboto Mono, monospace',
+    },
+    height: {
+      screen: '100dvh',
+    },
   },
   plugins: [],
 };

@@ -36,7 +36,7 @@ function Cart() {
 
       <div>
         <Button to="/order/new">Order pizzas</Button>
-        <button>Clear cart</button>
+        <button type="button">Clear cart</button>
       </div>
     </div>
   );

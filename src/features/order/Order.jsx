@@ -2,6 +2,7 @@
 
 import { useLoaderData } from 'react-router-dom';
 
+import OrderItem from './OrderItem.jsx';
 import { getOrder } from '../../services/apiRestaurant.js';
 import {
   calcMinutesLeft,
@@ -41,6 +42,12 @@ function Order() {
           </span>
         </div>
       </div>
+
+      <ul className="divide-y divide-stone-200 border-b border-t">
+        {cart.map((item) => (
+          <OrderItem key={item.id} item={item} />
+        ))}
+      </ul>
 
       <div className="flex flex-wrap items-center justify-between gap-2 bg-stone-200 px-6 py-5">
         <p className="font-medium">

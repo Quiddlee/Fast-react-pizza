@@ -46,38 +46,65 @@ function CreateOrder() {
   const cart = fakeCart;
 
   return (
-    <div>
-      <h2>Ready to order? Let&apos;s go!</h2>
+    <div className="px-4 py-6">
+      <h2 className="mb-8 text-xl font-semibold">
+        Ready to order? Let&apos;s go!
+      </h2>
 
       <Form method="POST">
-        <div>
-          <label htmlFor="customer">
-            First Name
-            <input className="input" type="text" name="customer" required />
+        <div className="mb-5 gap-2">
+          <label
+            className="flex flex-col sm:flex-row sm:items-center"
+            htmlFor="customer">
+            <span className="sm:basis-40">First Name</span>
+            <input
+              className="input grow"
+              type="text"
+              name="customer"
+              required
+            />
           </label>
         </div>
 
-        <div>
-          <label htmlFor="phone">
-            Phone number
-            <div>
-              <input className="input" type="tel" name="phone" required />
+        <div className="mb-5 gap-2">
+          <label
+            className="flex flex-col sm:flex-row sm:items-center"
+            htmlFor="phone">
+            <span className="sm:basis-40">Phone number</span>
+            <div className="grow">
+              <input
+                className="input w-full"
+                type="tel"
+                name="phone"
+                required
+              />
+              {formErrors?.phone && (
+                <p className="mt-2 rounded-md bg-red-300 p-4 text-xs text-red-100">
+                  {formErrors.phone}
+                </p>
+              )}
             </div>
-            {formErrors?.phone && <p>{formErrors.phone}</p>}
           </label>
         </div>
 
-        <div>
-          <label htmlFor="address">
-            Address
-            <div>
-              <input className="input" type="text" name="address" required />
+        <div className="mb-5 gap-2">
+          <label
+            className="flex flex-col sm:flex-row sm:items-center"
+            htmlFor="address">
+            <span className="sm:basis-40">Address</span>
+            <div className="grow">
+              <input
+                className="input w-full"
+                type="text"
+                name="address"
+                required
+              />
             </div>
           </label>
         </div>
 
-        <div>
-          <label htmlFor="priority">
+        <div className="mb-12 flex items-center gap-5">
+          <label className="font-medium" htmlFor="priority">
             <input
               className="h-6 w-6 accent-yellow-400 focus:outline-none focus:ring focus:ring-yellow-400 focus:ring-offset-2"
               type="checkbox"

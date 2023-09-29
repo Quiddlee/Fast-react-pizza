@@ -43,12 +43,6 @@ function Order() {
         </div>
       </div>
 
-      <ul className="divide-y divide-stone-200 border-b border-t">
-        {cart.map((item) => (
-          <OrderItem key={item.id} item={item} />
-        ))}
-      </ul>
-
       <div className="flex flex-wrap items-center justify-between gap-2 bg-stone-200 px-6 py-5">
         <p className="font-medium">
           {isDeliveryExist
@@ -59,6 +53,12 @@ function Order() {
           (Estimated delivery: {formatDate(estimatedDelivery)})
         </p>
       </div>
+
+      <ul className="divide-y divide-stone-200 border-b border-t">
+        {cart.map((item) => (
+          <OrderItem key={item.pizzaId} item={item} />
+        ))}
+      </ul>
 
       <div className="space-y-2 bg-stone-200 px-4 py-6">
         <p className="text-sm font-medium text-stone-600">

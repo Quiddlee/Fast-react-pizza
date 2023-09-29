@@ -1,16 +1,20 @@
 import { useCallback } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../../ui/Button.jsx';
 import { formatCurrency } from '../../utils/helpers.js';
-import { addItem } from '../cart/cartSlice.js';
+import { addItem, getQuantityById } from '../cart/cartSlice.js';
+import DeleteItem from '../cart/DeleteItem.jsx';
 
 function MenuItem({ pizza }) {
   const dispatch = useDispatch();
 
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
 
+  const currQuantity = useSelector(getQuantityById(id));
+
+  const isInCart = currQuantity > 0;
   let price;
   let priceClassName = 'text-sm';
   let imgClassName = 'max-h-24';
@@ -47,7 +51,10 @@ function MenuItem({ pizza }) {
         </p>
         <div className="mt-auto flex items-center justify-between">
           <p className={priceClassName}>{price}</p>
-          {!soldOut && (
+
+          {isInCart && <DeleteItem pizzaId={id} />}
+
+          {!soldOut && !isInCart && (
             <Button onClick={handleAddToCart} type="small">
               Add to cart
             </Button>

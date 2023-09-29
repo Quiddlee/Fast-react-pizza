@@ -64,3 +64,13 @@ export const getTotalCartQuantity = (store) =>
 
 export const getTotalCartPrice = (store) =>
   store.cart.cart.reduce((sum, item) => sum + item.totalPrice, 0);
+
+/**
+ * Retrieves the current quantity of a pizza in the cart by its ID.
+ *
+ * @param {number} id - The ID of the pizza.
+ * @returns {(store: typeof initialState) => number|undefined} - The quantity of the pizza with the specified ID,
+ *   or undefined if the pizza is not found in the cart.
+ */
+export const getQuantityById = (id) => (store) =>
+  store.cart.cart.find((pizza) => pizza.pizzaId === id)?.quantity;

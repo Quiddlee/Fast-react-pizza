@@ -1,6 +1,13 @@
-import CreateUser from '../features/user/CreateUser';
+import { useSelector } from 'react-redux';
+
+import Button from './Button.jsx';
+import CreateUser from '../features/user/CreateUser.jsx';
 
 function Home() {
+  const userName = useSelector((store) => store.user.userName);
+
+  const isUserExist = userName !== '';
+
   return (
     <div className="my-10 px-4 text-center sm:my-16">
       <h1 className="container mb-4 text-center text-xl font-semibold md:text-3xl">
@@ -11,7 +18,13 @@ function Home() {
         </span>
       </h1>
 
-      <CreateUser />
+      {isUserExist ? (
+        <Button to="/menu" type="primary">
+          Continue ordering, {userName}
+        </Button>
+      ) : (
+        <CreateUser />
+      )}
     </div>
   );
 }

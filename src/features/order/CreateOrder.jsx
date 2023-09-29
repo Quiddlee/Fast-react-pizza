@@ -1,4 +1,5 @@
 // https://uibakery.io/regex-library/phone-number
+import { useSelector } from 'react-redux';
 import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
 
 import { createOrder } from '../../services/apiRestaurant.js';
@@ -38,9 +39,10 @@ const fakeCart = [
 
 function CreateOrder() {
   const navigation = useNavigation();
-  const isSubmitting = navigation.state === 'submitting';
-
   const formErrors = useActionData();
+  const userName = useSelector((store) => store.user.userName);
+
+  const isSubmitting = navigation.state === 'submitting';
 
   // const [withPriority, setWithPriority] = useState(false);
   const cart = fakeCart;
@@ -61,6 +63,7 @@ function CreateOrder() {
               className="input grow"
               type="text"
               name="customer"
+              defaultValue={userName}
               required
             />
           </label>

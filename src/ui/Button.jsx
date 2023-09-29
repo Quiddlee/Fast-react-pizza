@@ -21,7 +21,7 @@ function Button({ children, disabled, to, type }) {
     );
 
   return (
-    <button className={styles[type]} disabled={disabled} type="button">
+    <button className={styles[type]} disabled={disabled} type="submit">
       {children}
     </button>
   );

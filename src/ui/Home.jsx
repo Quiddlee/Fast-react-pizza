@@ -2,9 +2,10 @@ import { useSelector } from 'react-redux';
 
 import Button from './Button.jsx';
 import CreateUser from '../features/user/CreateUser.jsx';
+import { getUserName } from '../features/user/userSlice.js';
 
 function Home() {
-  const userName = useSelector((store) => store.user.userName);
+  const userName = useSelector(getUserName);
 
   const isUserExist = userName !== '';
 

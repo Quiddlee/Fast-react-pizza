@@ -4,6 +4,7 @@ import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
 
 import { createOrder } from '../../services/apiRestaurant.js';
 import Button from '../../ui/Button.jsx';
+import { getUserName } from '../user/userSlice.js';
 
 const isValidPhone = (str) =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
@@ -40,7 +41,7 @@ const fakeCart = [
 function CreateOrder() {
   const navigation = useNavigation();
   const formErrors = useActionData();
-  const userName = useSelector((store) => store.user.userName);
+  const userName = useSelector(getUserName);
 
   const isSubmitting = navigation.state === 'submitting';
 

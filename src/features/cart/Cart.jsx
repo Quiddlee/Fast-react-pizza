@@ -1,37 +1,26 @@
-import { useSelector } from 'react-redux';
+import { useCallback } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 import CartItem from './CartItem.jsx';
+import { clearCart, getCart } from './cartSlice.js';
+import EmptyCart from './EmptyCart.jsx';
 import Button from '../../ui/Button.jsx';
 import LinkButton from '../../ui/LinkButton.jsx';
-
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: 'Mediterranean',
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: 'Vegetale',
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: 'Spinach and Mushroom',
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
+import { getUserName } from '../user/userSlice.js';
 
 function Cart() {
-  const userName = useSelector((store) => store.user.userName);
+  const userName = useSelector(getUserName);
+  const cart = useSelector(getCart);
+  const dispatch = useDispatch();
 
-  const cart = fakeCart;
+  const noCart = !cart.length;
+
+  const handleClearCart = useCallback(() => {
+    dispatch(clearCart());
+  }, [dispatch]);
+
+  if (noCart) return <EmptyCart />;
 
   return (
     <div className="px-4 py-3">
@@ -41,7 +30,7 @@ function Cart() {
 
       <ul className="mt-3 divide-y divide-stone-200 border-b">
         {cart.map((item) => (
-          <CartItem key={item.key} item={item} />
+          <CartItem key={item.id} item={item} />
         ))}
       </ul>
 
@@ -49,7 +38,9 @@ function Cart() {
         <Button to="/order/new" type="primary">
           Order pizzas
         </Button>
-        <Button type="secondary">Clear cart</Button>
+        <Button onClick={handleClearCart} type="secondary">
+          Clear cart
+        </Button>
       </div>
     </div>
   );

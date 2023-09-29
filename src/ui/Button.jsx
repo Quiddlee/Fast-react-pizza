@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const base =
   'rounded-full bg-yellow-400 font-semibold uppercase tracking-wide text-stone-800 transition-colors duration-300 hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:bg-yellow-400 text-sm';
 
-function Button({ children, disabled, to, type }) {
+function Button({ children, disabled, to, type, onClick }) {
   const isButtonLink = to;
 
   const styles = {
@@ -18,6 +18,17 @@ function Button({ children, disabled, to, type }) {
       <Link className={styles[type]} to={to}>
         {children}
       </Link>
+    );
+
+  if (onClick)
+    return (
+      <button
+        onClick={onClick}
+        className={styles[type]}
+        disabled={disabled}
+        type="submit">
+        {children}
+      </button>
     );
 
   return (

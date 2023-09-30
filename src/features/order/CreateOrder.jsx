@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
@@ -25,8 +25,19 @@ function CreateOrder() {
   const formErrors = useActionData();
   const [withPriority, setWithPriority] = useState(false);
 
-  const userName = useSelector(getUserName);
+  const {
+    status: addressStatus,
+    position: { latitude, longitude },
+    address,
+    error: errorAddress,
+  } = useSelector((state) => state.user);
+
+  const isLoadingAddress = addressStatus === 'loading';
+  const userGeoNotDefined = !latitude && !longitude;
+  const userGeoDefined = !userGeoNotDefined;
+
   const cart = useSelector(getCart);
+  const userName = useSelector(getUserName);
   const totalCartPrice = useSelector(getTotalCartPrice);
   const dispatch = useDispatch();
 
@@ -35,21 +46,21 @@ function CreateOrder() {
   const totalPrice = totalCartPrice + priorityPrice;
   const noCart = !cart.length;
 
-  if (noCart) return <EmptyCart />;
+  const handleFetchAddress = useCallback(
+    (e) => {
+      e.preventDefault();
+      dispatch(fetchAddress());
+    },
+    [dispatch],
+  );
 
-  function handleFetchAddress() {
-    dispatch(fetchAddress());
-  }
+  if (noCart) return <EmptyCart />;
 
   return (
     <div className="px-4 py-6">
       <h2 className="mb-8 text-xl font-semibold">
         Ready to order? Let&apos;s go!
       </h2>
-
-      <button type="button" onClick={handleFetchAddress}>
-        Get position
-      </button>
 
       <Form method="POST">
         <div className="mb-5 gap-2">
@@ -90,17 +101,35 @@ function CreateOrder() {
 
         <div className="mb-5 gap-2">
           <label
-            className="flex flex-col sm:flex-row sm:items-center"
+            className="relative flex flex-col sm:flex-row sm:items-center"
             htmlFor="address">
             <span className="sm:basis-40">Address</span>
             <div className="grow">
               <input
+                disabled={isLoadingAddress}
+                defaultValue={address}
                 className="input w-full"
                 type="text"
                 name="address"
                 required
               />
+              {addressStatus === 'error' && (
+                <p className="mt-2 rounded-md bg-red-100 p-2 text-xs text-red-700">
+                  {errorAddress}
+                </p>
+              )}
             </div>
+
+            {userGeoNotDefined && (
+              <span className="absolute right-[5px] top-[3px] z-50 md:top-[5px]">
+                <Button
+                  disabled={isLoadingAddress}
+                  type="small"
+                  onClick={handleFetchAddress}>
+                  Get position
+                </Button>
+              </span>
+            )}
           </label>
         </div>
 
@@ -120,7 +149,12 @@ function CreateOrder() {
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <Button type="primary" disabled={isSubmitting}>
+          <input
+            type="hidden"
+            name="position"
+            value={userGeoDefined ? `${latitude},${longitude}` : ''}
+          />
+          <Button type="primary" disabled={isSubmitting || isLoadingAddress}>
             {isSubmitting
               ? 'Placing order...'
               : `Order now from ${formatCurrency(totalPrice)}`}

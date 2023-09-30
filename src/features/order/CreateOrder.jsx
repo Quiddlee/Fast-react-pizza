@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
 
 import { createOrder } from '../../services/apiRestaurant.js';
@@ -9,7 +9,7 @@ import Button from '../../ui/Button.jsx';
 import { formatCurrency } from '../../utils/helpers.js';
 import { clearCart, getCart, getTotalCartPrice } from '../cart/cartSlice.js';
 import EmptyCart from '../cart/EmptyCart.jsx';
-import { getUserName } from '../user/userSlice.js';
+import { fetchAddress, getUserName } from '../user/userSlice.js';
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -23,24 +23,33 @@ const PHONE_ERROR =
 function CreateOrder() {
   const navigation = useNavigation();
   const formErrors = useActionData();
-  const userName = useSelector(getUserName);
   const [withPriority, setWithPriority] = useState(false);
 
-  const isSubmitting = navigation.state === 'submitting';
-
+  const userName = useSelector(getUserName);
   const cart = useSelector(getCart);
   const totalCartPrice = useSelector(getTotalCartPrice);
-  const priorityPrice = withPriority ? totalCartPrice * 0.2 : 0;
-  const totalPrice = totalCartPrice + priorityPrice;
-  const noCart = !cart.length
+  const dispatch = useDispatch();
 
-  if (noCart) return <EmptyCart />
+  const priorityPrice = withPriority ? totalCartPrice * 0.2 : 0;
+  const isSubmitting = navigation.state === 'submitting';
+  const totalPrice = totalCartPrice + priorityPrice;
+  const noCart = !cart.length;
+
+  if (noCart) return <EmptyCart />;
+
+  function handleFetchAddress() {
+    dispatch(fetchAddress());
+  }
 
   return (
     <div className="px-4 py-6">
       <h2 className="mb-8 text-xl font-semibold">
         Ready to order? Let&apos;s go!
       </h2>
+
+      <button type="button" onClick={handleFetchAddress}>
+        Get position
+      </button>
 
       <Form method="POST">
         <div className="mb-5 gap-2">
@@ -112,7 +121,9 @@ function CreateOrder() {
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
           <Button type="primary" disabled={isSubmitting}>
-            {isSubmitting ? 'Placing order...' : `Order now from ${formatCurrency(totalPrice)}`}
+            {isSubmitting
+              ? 'Placing order...'
+              : `Order now from ${formatCurrency(totalPrice)}`}
           </Button>
         </div>
       </Form>
@@ -132,10 +143,9 @@ export async function action({ request }) {
     priority: data.priority === 'true',
   };
 
-
   if (!isValidPhone(order.phone)) errors.phone = PHONE_ERROR;
 
-  const errorsExist = Object.keys(errors).length > 0
+  const errorsExist = Object.keys(errors).length > 0;
   if (errorsExist) return errors;
 
   // If everything is ok, create new order, clear cart and redirect

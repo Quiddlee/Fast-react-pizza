@@ -1,11 +1,14 @@
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 
 import { useDispatch } from 'react-redux';
 
 import { decreaseQuantity, increaseQuantity } from './cartSlice.js';
 import Button from '../../ui/Button.jsx';
 
-function UpdateItemQuantity({ pizzaId, currQuantity }) {
+const UpdateItemQuantity = memo(function UpdateItemQuantity({
+  pizzaId,
+  currQuantity,
+}) {
   const dispatch = useDispatch();
 
   const handleDecrease = useCallback(() => {
@@ -27,6 +30,6 @@ function UpdateItemQuantity({ pizzaId, currQuantity }) {
       </Button>
     </div>
   );
-}
+});
 
 export default UpdateItemQuantity;

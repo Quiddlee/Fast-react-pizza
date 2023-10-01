@@ -1,10 +1,12 @@
+import { memo } from 'react';
+
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { getTotalCartPrice, getTotalCartQuantity } from './cartSlice.js';
 import { formatCurrency } from '../../utils/helpers.js';
 
-function CartOverview() {
+const CartOverview = memo(function CartOverview() {
   const totalCartQuantity = useSelector(getTotalCartQuantity);
   const totalCartPrice = useSelector(getTotalCartPrice);
 
@@ -19,6 +21,6 @@ function CartOverview() {
       <Link to="/cart">Open cart &rarr;</Link>
     </div>
   );
-}
+});
 
 export default CartOverview;

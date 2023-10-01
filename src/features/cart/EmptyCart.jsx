@@ -1,6 +1,8 @@
+import { memo } from 'react';
+
 import LinkButton from '../../ui/LinkButton.jsx';
 
-function EmptyCart() {
+const EmptyCart = memo(function EmptyCart() {
   return (
     <div className="px-4 py-3">
       <LinkButton to="/menu">&larr; Back to menu</LinkButton>
@@ -10,6 +12,6 @@ function EmptyCart() {
       </p>
     </div>
   );
-}
+});
 
 export default EmptyCart;

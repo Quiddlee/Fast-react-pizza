@@ -15,6 +15,7 @@ module.exports = {
     "ecmaVersion": 'latest'
   },
   rules: {
+    'prefer-arrow-callback': 0,
     'react/prop-types': 0,
     'no-void': 0,
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],

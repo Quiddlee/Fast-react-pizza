@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { useSelector } from 'react-redux';
 
 import { getQuantityById } from './cartSlice.js';
@@ -5,7 +7,7 @@ import DeleteItem from './DeleteItem.jsx';
 import UpdateItemQuantity from './UpdateItemQuantity.jsx';
 import { formatCurrency } from '../../utils/helpers.js';
 
-function CartItem({ item }) {
+const CartItem = memo(function CartItem({ item }) {
   const { pizzaId, name, quantity, totalPrice } = item;
 
   const currQuantity = useSelector(getQuantityById(pizzaId));
@@ -22,6 +24,6 @@ function CartItem({ item }) {
       </div>
     </li>
   );
-}
+});
 
 export default CartItem;

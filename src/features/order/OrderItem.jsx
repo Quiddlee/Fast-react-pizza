@@ -1,6 +1,12 @@
+import { memo } from 'react';
+
 import { formatCurrency } from '../../utils/helpers.js';
 
-function OrderItem({ item, isLoadingIngredients, ingredients }) {
+const OrderItem = memo(function OrderItem({
+  item,
+  isLoadingIngredients,
+  ingredients,
+}) {
   const { quantity, name, totalPrice } = item;
 
   return (
@@ -19,6 +25,6 @@ function OrderItem({ item, isLoadingIngredients, ingredients }) {
       </p>
     </li>
   );
-}
+});
 
 export default OrderItem;

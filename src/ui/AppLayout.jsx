@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { Outlet, useNavigation } from 'react-router-dom';
 
 import Header from './Header.jsx';
@@ -6,7 +8,7 @@ import CartOverview from '../features/cart/CartOverview.jsx';
 
 const LOADING_STATE = 'loading';
 
-function AppLayout() {
+const AppLayout = memo(function AppLayout() {
   const navigation = useNavigation();
 
   const isLoading = navigation.state === LOADING_STATE;
@@ -26,6 +28,6 @@ function AppLayout() {
       <CartOverview />
     </div>
   );
-}
+});
 
 export default AppLayout;

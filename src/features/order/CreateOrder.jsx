@@ -20,7 +20,7 @@ const isValidPhone = (str) =>
 const PHONE_ERROR =
   'Please give us your correct phone number, we might need it to contact you.';
 
-function CreateOrder() {
+export function Component() {
   const navigation = useNavigation();
   const formErrors = useActionData();
   const [withPriority, setWithPriority] = useState(false);
@@ -191,4 +191,4 @@ export async function action({ request }) {
   return redirect(`/order/${newOrder.id}/`);
 }
 
-export default CreateOrder;
+Component.displayName = 'CreateOrder';

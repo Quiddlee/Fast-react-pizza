@@ -6,14 +6,13 @@ import { useFetcher, useLoaderData } from 'react-router-dom';
 
 import OrderItem from './OrderItem.jsx';
 import UpdateOrder from './UpdateOrder.jsx';
-import { getOrder } from '../../services/apiRestaurant.js';
 import {
   calcMinutesLeft,
   formatCurrency,
   formatDate,
 } from '../../utils/helpers';
 
-function Order() {
+export function Component() {
   const order = useLoaderData();
   const fetcher = useFetcher();
 
@@ -94,10 +93,4 @@ function Order() {
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
-export async function loader({ params }) {
-  const order = await getOrder(params.orderId);
-  return order;
-}
-
-export default Order;
+Component.displayName = 'Order';

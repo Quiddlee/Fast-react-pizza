@@ -4,7 +4,8 @@ import Button from './Button.jsx';
 import CreateUser from '../features/user/CreateUser.jsx';
 import { getUserName } from '../features/user/userSlice.js';
 
-function Home() {
+// eslint-disable-next-line import/prefer-default-export
+export function Component() {
   const userName = useSelector(getUserName);
 
   const isUserExist = userName !== '';
@@ -30,4 +31,4 @@ function Home() {
   );
 }
 
-export default Home;
+Component.displayName = 'Home';

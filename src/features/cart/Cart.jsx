@@ -1,15 +1,16 @@
-import { useCallback } from "react";
+import { useCallback } from 'react';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 
-import CartItem from "./CartItem.jsx";
-import { clearCart, getCart } from "./cartSlice.js";
-import EmptyCart from "./EmptyCart.jsx";
-import Button from "../../ui/Button.jsx";
-import LinkButton from "../../ui/LinkButton.jsx";
-import { getUserName } from "../user/userSlice.js";
+import CartItem from './CartItem.jsx';
+import { clearCart, getCart } from './cartSlice.js';
+import EmptyCart from './EmptyCart.jsx';
+import Button from '../../ui/Button.jsx';
+import LinkButton from '../../ui/LinkButton.jsx';
+import { getUserName } from '../user/userSlice.js';
 
-function Cart() {
+// eslint-disable-next-line import/prefer-default-export
+export function Component() {
   const userName = useSelector(getUserName);
   const cart = useSelector(getCart);
   const dispatch = useDispatch();
@@ -46,4 +47,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+Component.displayName = 'Cart';

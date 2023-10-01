@@ -1,0 +1,1 @@
+import{r as s,j as t,L as r}from"./index-83559760.js";const m=s.memo(function(){return t.jsxs("div",{className:"px-4 py-3",children:[t.jsx(r,{to:"/menu",children:"← Back to menu"}),t.jsx("p",{className:"mt-7 font-semibold",children:"Your cart is still empty. Start adding some pizzas :)"})]})});export{m as E};
